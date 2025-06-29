@@ -77,6 +77,28 @@ stage('Deploiement en dev'){
             }
 
         }
+
+stage('Deploiement en qa'){
+        environment
+        {
+        KUBECONFIG = credentials("config") // we retrieve  kubeconfig from secret file called config saved on jenkins
+        }
+            steps {
+                script {
+                sh '''
+                rm -Rf .kube
+                mkdir .kube
+                ls
+                cat $KUBECONFIG > .kube/config
+                cp charts/values.yaml values.yml
+                cat values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
+                helm upgrade --install app charts --values=values.yml --namespace qa
+                '''
+                }
+            }
+
+        }
         
 stage('Deploiement en staging'){
         environment
@@ -99,6 +121,7 @@ stage('Deploiement en staging'){
             }
 
         }
+  
   stage('Deploiement en prod'){
         environment
         {
