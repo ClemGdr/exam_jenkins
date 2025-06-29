@@ -13,13 +13,11 @@ stages {
                  docker rm -f jenkins
                  docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG ./movie-service
                  docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG ./cast-service
-                 docker build image 'postgres:12.1-alpine'
                 sleep 6
                 '''
-                }
-                }
+                } 
             }
-        }s
+        }
         stage('Docker run'){ // run container from our builded image
                 steps {
                     script {
