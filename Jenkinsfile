@@ -8,12 +8,14 @@ agent any // Jenkins will be able to select all available agents
 stages {
         stage('Docker Build'){ // docker build image stage
             steps {
+                docker {
+                    image 'postgres:12.1-alpine'
+                }
                 script {
                 sh '''
                  docker rm -f jenkins
                  docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG ./movie-service
                  docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG ./cast-service
-                 docker build postgres:12.1-alpine
                 sleep 6
                 '''
                 }
