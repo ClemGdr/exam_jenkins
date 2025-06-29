@@ -12,7 +12,6 @@ stages {
                 sh '''
                  docker rm -f jenkins
                  docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG ./movie-service
-                 docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG ./cast-service
                 sleep 6
                 '''
                 }
@@ -99,7 +98,7 @@ stage('Deploiement en qa'){
             }
 
         }
-        
+
 stage('Deploiement en staging'){
         environment
         {
