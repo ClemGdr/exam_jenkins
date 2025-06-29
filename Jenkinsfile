@@ -13,6 +13,8 @@ stages {
                  docker rm -f jenkins
                  docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG ./movie-service
                  docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG ./cast-service
+                 docker build -t nginx:latest
+                 docker build -t postgres:12.1-alpine
                 sleep 6
                 '''
                 }
