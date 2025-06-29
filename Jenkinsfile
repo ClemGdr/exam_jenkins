@@ -23,7 +23,6 @@ stages {
                     script {
                     sh '''
                     docker run -d -p 80:80 --name jenkins $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG
-                    docker compose up -d
                     sleep 10
                     '''
                     }
