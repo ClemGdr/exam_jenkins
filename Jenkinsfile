@@ -28,7 +28,6 @@ stages {
         stage('Start container'){ // docker compoes build stage
             steps {
                 script {
-                sh 'sudo chmod -R 755 /var/lib/jenkins'
                 sh 'docker compose up -d'
                 sh 'docker compose ps'
                 } 
