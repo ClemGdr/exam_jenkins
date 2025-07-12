@@ -66,6 +66,7 @@ stage('Deploiement en dev'){
                 cat $KUBECONFIG > .kube/config
                 cp charts/values.yaml values.yml
                 cat values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
                 helm upgrade --install app charts --values=values.yml --namespace dev
                 '''
                 }
@@ -87,6 +88,7 @@ stage('Deploiement en qa'){
                 cat $KUBECONFIG > .kube/config
                 cp charts/values.yaml values.yml
                 cat values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
                 helm upgrade --install app charts --values=values.yml --namespace qa
                 '''
                 }
@@ -108,6 +110,7 @@ stage('Deploiement en staging'){
                 cat $KUBECONFIG > .kube/config
                 cp charts/values.yaml values.yml
                 cat values.yml
+                sed -i "s+tag.*+tag: ${DOCKER_TAG}+g" values.yml
                 helm upgrade --install app charts --values=values.yml --namespace staging
                 '''
                 }
