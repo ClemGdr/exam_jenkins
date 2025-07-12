@@ -36,7 +36,7 @@ stages {
         stage('Tests container'){ // run container from our builded image
                 steps {
                     script {
-                    sh 'curl http://3.255.137.10:8081/api/v1/movies/docs | jenkins'
+                    sh 'curl http://localhost:8081/api/v1/movies/docs | jenkins'
                     sh 'curl http://3.255.137.10:8081/api/v1/casts/docs | jenkins'
                     }
                 }
