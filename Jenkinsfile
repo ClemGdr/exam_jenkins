@@ -18,9 +18,18 @@ stages {
                 } 
             }
         }
+        stage('Start clean'){ // docker compoes build stage
+            steps {
+                script {
+                sh'docker system prune -a --volume -f'
+                } 
+            }
+        }
         stage('Start container'){ // docker compoes build stage
             steps {
                 script {
+                sh'sudo chown -R jenkins:jenkins /var/lib/jenkins'
+                sh'sudo chmod -R 755 /var/lib/jenkins'
                 sh 'docker compose up -d'
                 sh 'docker compose ps'
                 } 
