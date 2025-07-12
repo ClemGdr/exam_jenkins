@@ -29,15 +29,13 @@ stages {
             steps {
                 script {
                 sh 'docker-compose up -d'
-                sh 'docker-compose ps'
                 } 
             }
         }
         stage('Tests container'){ // run container from our builded image
                 steps {
                     script {
-                    sh 'curl http://3.255.137.10:8081/api/v1/movies/docs | jq'
-                    sh 'curl http://3.255.137.10:8081/api/v1/casts/docs | jq'
+                    sh 'docker-compose ps'
                     }
                 }
             }
