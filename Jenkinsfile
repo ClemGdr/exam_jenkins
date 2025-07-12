@@ -28,8 +28,8 @@ stages {
         stage('Start container'){ // docker compoes build stage
             steps {
                 script {
-                sh 'docker compose up -d'
-                sh 'docker compose ps'
+                sh 'sudo docker compose up -d'
+                sh 'sudo docker compose ps'
                 } 
             }
         }
