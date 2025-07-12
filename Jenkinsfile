@@ -21,7 +21,7 @@ stages {
         stage('Start clean'){ // docker compoes build stage
             steps {
                 script {
-                sh'docker system prune -a --volume -f'
+                sh'docker system prune -a -f'
                 } 
             }
         }
