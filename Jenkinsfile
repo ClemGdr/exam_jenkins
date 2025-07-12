@@ -6,25 +6,32 @@ DOCKER_TAG = "v.${BUILD_ID}.0" // we will tag our images with the current build 
 }
 agent any // Jenkins will be able to select all available agents
 stages {
-        stage('Docker Build'){ // docker build image stage
+        stage('Tool checking'){ // docker build image stage
             steps {
                 script {
                 sh '''
-                 docker rm -f jenkins
-                 docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG ./movie-service
-                 docker build -t $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG ./cast-service
-                sleep 6
+                 docker version
+                 docker info
+                 docker compose version
+                 curl --version
+                 jq --version
                 '''
                 } 
             }
         }
-        stage('Docker run'){ // run container from our builded image
+        stage('Start container'){ // docker compoes build stage
+            steps {
+                script {
+                sh 'docker compose up -d'
+                sh 'docker compose ps'
+                } 
+            }
+        }
+        stage('Tests container'){ // run container from our builded image
                 steps {
                     script {
-                    sh '''
-                    docker run -d -p 80:80 --name jenkins $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG
-                    sleep 10
-                    '''
+                    sh 'curl http://localhost:8081/api/v1/movies/docs | jq'
+                    sh 'http://localhost:8081/api/v1/casts/docs | jq'
                     }
                 }
             }
