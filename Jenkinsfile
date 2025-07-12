@@ -37,7 +37,7 @@ stages {
                 steps {
                     script {
                     sh 'curl http://localhost:8081/api/v1/movies/docs'
-                    sh 'curl http://3.255.137.10:8081/api/v1/casts/docs | jenkins'
+                    sh 'curl http://localhost:8081/api/v1/casts/docs'
                     }
                 }
             }
@@ -49,23 +49,6 @@ stages {
                     curl localhost
                     '''
                     }
-            }
-
-        }
-        stage('Docker Push'){ //we pass the built image to our docker hub account
-            environment
-            {
-                DOCKER_PASS = credentials("DOCKER_HUB_PASS") // we retrieve  docker password from secret text called docker_hub_pass saved on jenkins
-            }
-
-            steps {
-
-                script {
-                sh '''
-                docker login -u $DOCKER_ID -p $DOCKER_PASS
-                docker push $DOCKER_ID/$DOCKER_IMAGE:$DOCKER_TAG
-                '''
-                }
             }
 
         }
